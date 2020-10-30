@@ -15,22 +15,32 @@ namespace WarehouseAccounting
     {
         List<String> Tablenames = new List<String>();
 
-
+        MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
         public FormEditor()
         {
             InitializeComponent();
 
             
-            MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
+            
 
-            mySqlConnectionStringBuilder.Server = "localhost";
-            mySqlConnectionStringBuilder.Port = 3306;
-            mySqlConnectionStringBuilder.Database = "warehouse";
-            mySqlConnectionStringBuilder.UserID = "root";
-            mySqlConnectionStringBuilder.Password = "";
+            //mySqlConnectionStringBuilder.Server = "localhost";
+            //mySqlConnectionStringBuilder.Port = 3306;
+            //mySqlConnectionStringBuilder.Database = "warehouse";
+            //mySqlConnectionStringBuilder.UserID = "root";
+            //mySqlConnectionStringBuilder.Password = "";
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+                        
+        }
+
+        private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
+        {
             MySqlConnection mySqlConnection = new MySqlConnection(mySqlConnectionStringBuilder.ToString());
 
-            
+
             try
             {
                 mySqlConnection.Open();
@@ -40,7 +50,7 @@ namespace WarehouseAccounting
 
                 throw;
             }
-            
+
 
             MySqlCommand mySqlCommand = new MySqlCommand("SHOW TABLES");
 
@@ -59,10 +69,19 @@ namespace WarehouseAccounting
             comboBox_SelectTable.Items.AddRange(Tablenames.ToArray());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void toolStripMenuItem_Disconnect_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
         {
             var formSettings = new FormSettings();
-            formSettings.Show();            
+            formSettings.ShowDialog();
+            if(formSettings.DialogResult == DialogResult.OK)
+            {
+                mySqlConnectionStringBuilder = formSettings.mySqlConnectionStringBuilder;
+            }
         }
     }
 }

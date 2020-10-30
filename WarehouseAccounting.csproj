@@ -88,6 +88,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connect.cs" />
+    <Compile Include="Connect.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Connect.settings</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="FormEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +125,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Connect.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Connect.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
