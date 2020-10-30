@@ -74,12 +74,12 @@ namespace WarehouseAccounting.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ПараметрDatabase {
+        public string Database {
             get {
-                return ((string)(this["ПараметрDatabase"]));
+                return ((string)(this["Database"]));
             }
             set {
-                this["ПараметрDatabase"] = value;
+                this["Database"] = value;
             }
         }
     }

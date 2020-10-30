@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
+using WarehouseAccounting.Properties;
+
 namespace WarehouseAccounting
 {
     public partial class FormEditor : Form
@@ -16,19 +18,20 @@ namespace WarehouseAccounting
         List<String> Tablenames = new List<String>();
 
         MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
+
+        MySqlConnection mySqlConnection;
+
+        MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
         public FormEditor()
         {
             InitializeComponent();
 
-            
-            
-
-            //mySqlConnectionStringBuilder.Server = "localhost";
-            //mySqlConnectionStringBuilder.Port = 3306;
-            //mySqlConnectionStringBuilder.Database = "warehouse";
-            //mySqlConnectionStringBuilder.UserID = "root";
-            //mySqlConnectionStringBuilder.Password = "";
-            
+            Settings.Default["Server"] = "localhost";
+            Settings.Default["Port"] = (uint)3306;
+            Settings.Default["UserID"] = "root";
+            Settings.Default["Password"] = "";
+            Settings.Default["Database"] = "warehouse";
+            Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,8 +41,14 @@ namespace WarehouseAccounting
 
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
         {
-            MySqlConnection mySqlConnection = new MySqlConnection(mySqlConnectionStringBuilder.ToString());
 
+            if(Settings.Default["Server"] == null)
+            {
+                toolStripMenuItem_Settings_Click(sender, e);
+                return;
+            }
+
+            mySqlConnection = new MySqlConnection(mySqlConnectionStringBuilder.ToString());
 
             try
             {
@@ -53,10 +62,7 @@ namespace WarehouseAccounting
 
 
             MySqlCommand mySqlCommand = new MySqlCommand("SHOW TABLES");
-
             mySqlCommand.Connection = mySqlConnection;
-
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
 
             MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
 
@@ -65,13 +71,16 @@ namespace WarehouseAccounting
                 Tablenames.Add(mySqlDataReader.GetString(0));
             }
 
-
             comboBox_SelectTable.Items.AddRange(Tablenames.ToArray());
+
+            comboBox_SelectTable.SelectedIndex = 0;
+
+            toolStripMenuItem_Connect.Enabled = false;
         }
 
         private void toolStripMenuItem_Disconnect_Click(object sender, EventArgs e)
         {
-            
+            toolStripMenuItem_Disconnect.Enabled = true;
         }
 
         private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
@@ -81,6 +90,7 @@ namespace WarehouseAccounting
             if(formSettings.DialogResult == DialogResult.OK)
             {
                 mySqlConnectionStringBuilder = formSettings.mySqlConnectionStringBuilder;
+
             }
         }
     }
