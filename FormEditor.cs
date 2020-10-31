@@ -26,23 +26,25 @@ namespace WarehouseAccounting
         {
             InitializeComponent();
 
-            Settings.Default["Server"] = "localhost";
-            Settings.Default["Port"] = (uint)3306;
-            Settings.Default["UserID"] = "root";
-            Settings.Default["Password"] = "";
-            Settings.Default["Database"] = "warehouse";
-            Settings.Default.Save();
+            if (Settings.Default["Server"] != null)
+            {
+                mySqlConnectionStringBuilder.Server = Settings.Default["Server"].ToString();
+                mySqlConnectionStringBuilder.Port = (uint)Settings.Default["Port"];
+                mySqlConnectionStringBuilder.UserID = Settings.Default["UserID"].ToString();
+                mySqlConnectionStringBuilder.Password = Settings.Default["Password"].ToString();
+                mySqlConnectionStringBuilder.Database = Settings.Default["Database"].ToString();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-                        
+
         }
 
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
         {
 
-            if(Settings.Default["Server"] == null)
+            if (Settings.Default["Server"] == null)
             {
                 toolStripMenuItem_Settings_Click(sender, e);
                 return;
@@ -71,27 +73,41 @@ namespace WarehouseAccounting
                 Tablenames.Add(mySqlDataReader.GetString(0));
             }
 
-            comboBox_SelectTable.Items.AddRange(Tablenames.ToArray());
+            mySqlDataReader.Close();
 
+            comboBox_SelectTable.Items.AddRange(Tablenames.ToArray());
             comboBox_SelectTable.SelectedIndex = 0;
 
             toolStripMenuItem_Connect.Enabled = false;
+            toolStripMenuItem_Disconnect.Enabled = true;
         }
 
         private void toolStripMenuItem_Disconnect_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem_Disconnect.Enabled = true;
+            mySqlConnection.Close();
+            toolStripMenuItem_Disconnect.Enabled = false;
+            toolStripMenuItem_Connect.Enabled = true;
+            comboBox_SelectTable.Items.Clear();
         }
 
         private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
         {
             var formSettings = new FormSettings();
             formSettings.ShowDialog();
-            if(formSettings.DialogResult == DialogResult.OK)
+            if (formSettings.DialogResult == DialogResult.OK)
             {
                 mySqlConnectionStringBuilder = formSettings.mySqlConnectionStringBuilder;
-
             }
+        }
+
+        private void comboBox_SelectTable_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mySqlDataAdapter.SelectCommand = new MySqlCommand("SELECT * FROM " + comboBox_SelectTable.SelectedItem.ToString(), mySqlConnection);
+
+            DataTable dataTable = new DataTable();
+            mySqlDataAdapter.Fill(dataTable);
+
+            dataGridView.DataSource = dataTable;
         }
     }
 }
