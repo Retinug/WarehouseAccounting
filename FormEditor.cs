@@ -38,12 +38,34 @@ namespace WarehouseAccounting
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            MySqlCommand insertCommand = new MySqlCommand($"INSERT INTO {comboBox_SelectTable.SelectedItem}({dataGridView.Columns[0].HeaderText}) VALUES (NULL)");
+            DataGridViewColumnCollection columnCollection = dataGridView.Columns;
+
+            string variables = "";
+            string values = "";
+
+            for (int i = 1; i < columnCollection.Count; i++)
+            {
+                DataGridViewColumn column = columnCollection[i];
+                variables += column.HeaderText + ", ";
+                values += "1, ";
+            }
+
+            variables = variables.Substring(0, variables.Length - 2);
+            values = values.Substring(0, values.Length - 2);
+
+            MySqlCommand insertCommand = new MySqlCommand($"INSERT INTO {comboBox_SelectTable.SelectedItem}({variables}) VALUES ({values})");
             insertCommand.Connection = mySqlConnection;
 
-            MySqlDataReader mySqlDataReader = insertCommand.ExecuteReader();
-            mySqlDataReader.Read();
-            mySqlDataReader.Close();
+            try
+            {
+                MySqlDataReader mySqlDataReader = insertCommand.ExecuteReader();
+                mySqlDataReader.Read();
+                mySqlDataReader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             updateData();
         }
@@ -73,9 +95,10 @@ namespace WarehouseAccounting
             {
                 mySqlConnection.Open();
             }
-            catch (Exception)
+            catch(MySqlException ex)
             {
-                throw;
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             MySqlCommand mySqlCommand = new MySqlCommand("SHOW TABLES");
@@ -95,6 +118,7 @@ namespace WarehouseAccounting
 
             toolStripMenuItem_Connect.Enabled = false;
             toolStripMenuItem_Disconnect.Enabled = true;
+
         }
 
         private void toolStripMenuItem_Disconnect_Click(object sender, EventArgs e)
@@ -134,6 +158,13 @@ namespace WarehouseAccounting
             updateData(updateCommand);
         }
 
+        
+        private void updateData()
+        {
+            DataTable dataTable = new DataTable();
+            mySqlDataAdapter.Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+        }
 
         private void updateData(MySqlCommand command)
         {
@@ -146,11 +177,5 @@ namespace WarehouseAccounting
             updateData();
         }
 
-        private void updateData()
-        {
-            DataTable dataTable = new DataTable();
-            mySqlDataAdapter.Fill(dataTable);
-            dataGridView.DataSource = dataTable;
-        }
     }
 }
