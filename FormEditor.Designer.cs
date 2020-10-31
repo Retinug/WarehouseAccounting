@@ -30,7 +30,7 @@
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_Add = new System.Windows.Forms.Button();
             this.comboBox_SelectTable = new System.Windows.Forms.ComboBox();
             this.label_SelectTable = new System.Windows.Forms.Label();
             this.menuStrip_Main = new System.Windows.Forms.MenuStrip();
@@ -38,6 +38,7 @@
             this.toolStripMenuItem_Connect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.button_Delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip_Main.SuspendLayout();
@@ -45,29 +46,35 @@
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(199, 27);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(319, 335);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.button_Delete);
+            this.panel1.Controls.Add(this.button_Add);
             this.panel1.Location = new System.Drawing.Point(12, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(178, 362);
             this.panel1.TabIndex = 1;
             // 
-            // button1
+            // button_Add
             // 
-            this.button1.Location = new System.Drawing.Point(4, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_Add.Location = new System.Drawing.Point(4, 4);
+            this.button_Add.Name = "button_Add";
+            this.button_Add.Size = new System.Drawing.Size(171, 23);
+            this.button_Add.TabIndex = 0;
+            this.button_Add.Text = "Добавить";
+            this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
             // 
             // comboBox_SelectTable
             // 
@@ -93,7 +100,7 @@
             this.настройкаToolStripMenuItem});
             this.menuStrip_Main.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_Main.Name = "menuStrip_Main";
-            this.menuStrip_Main.Size = new System.Drawing.Size(530, 24);
+            this.menuStrip_Main.Size = new System.Drawing.Size(531, 24);
             this.menuStrip_Main.TabIndex = 4;
             this.menuStrip_Main.Text = "menuStrip_Main";
             // 
@@ -129,17 +136,29 @@
             this.toolStripMenuItem_Settings.Text = "Настройка";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
+            // button_Delete
+            // 
+            this.button_Delete.Location = new System.Drawing.Point(3, 33);
+            this.button_Delete.Name = "button_Delete";
+            this.button_Delete.Size = new System.Drawing.Size(171, 23);
+            this.button_Delete.TabIndex = 1;
+            this.button_Delete.Text = "Удалить";
+            this.button_Delete.UseVisualStyleBackColor = true;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
+            // 
             // FormEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 401);
+            this.ClientSize = new System.Drawing.Size(531, 401);
             this.Controls.Add(this.label_SelectTable);
             this.Controls.Add(this.comboBox_SelectTable);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.menuStrip_Main);
             this.MainMenuStrip = this.menuStrip_Main;
+            this.MaximumSize = new System.Drawing.Size(1000, 440);
+            this.MinimumSize = new System.Drawing.Size(547, 440);
             this.Name = "FormEditor";
             this.Text = "Учет склада";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
@@ -157,12 +176,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBox_SelectTable;
         private System.Windows.Forms.Label label_SelectTable;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_Add;
         private System.Windows.Forms.MenuStrip menuStrip_Main;
         private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Connect;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Disconnect;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Settings;
+        private System.Windows.Forms.Button button_Delete;
     }
 }
 

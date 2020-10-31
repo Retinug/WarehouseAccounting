@@ -36,9 +36,26 @@ namespace WarehouseAccounting
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Add_Click(object sender, EventArgs e)
         {
+            MySqlCommand insertCommand = new MySqlCommand($"INSERT INTO {comboBox_SelectTable.SelectedItem}({dataGridView.Columns[0].HeaderText}) VALUES (NULL)");
+            insertCommand.Connection = mySqlConnection;
 
+            MySqlDataReader mySqlDataReader = insertCommand.ExecuteReader();
+            mySqlDataReader.Read();
+            mySqlDataReader.Close();
+
+            updateData();
+        }
+
+        private void button_Delete_Click(object sender, EventArgs e)
+        {
+            DataGridViewCell dataCell = dataGridView.SelectedCells[0];
+
+            MySqlCommand deleteCommand = new MySqlCommand($"DELETE FROM {comboBox_SelectTable.SelectedItem} WHERE {dataCell.OwningColumn.HeaderText} " +
+                $"= {dataCell.Value}");
+
+            updateData(deleteCommand);
         }
 
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
@@ -58,10 +75,8 @@ namespace WarehouseAccounting
             }
             catch (Exception)
             {
-
                 throw;
             }
-
 
             MySqlCommand mySqlCommand = new MySqlCommand("SHOW TABLES");
             mySqlCommand.Connection = mySqlConnection;
@@ -104,9 +119,37 @@ namespace WarehouseAccounting
         {
             mySqlDataAdapter.SelectCommand = new MySqlCommand("SELECT * FROM " + comboBox_SelectTable.SelectedItem.ToString(), mySqlConnection);
 
+            updateData();
+        }
+
+        private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell dataCell = dataGridView.SelectedCells[0];
+
+            MySqlCommand updateCommand = new MySqlCommand($"UPDATE {comboBox_SelectTable.SelectedItem} " +
+                $"SET {dataCell.OwningColumn.HeaderText} = " +
+                $"\'{dataGridView.CurrentCell.Value}\' " +
+                $"WHERE {dataGridView.Columns[0].HeaderText} = {dataGridView.Rows[dataCell.RowIndex].Cells[0].Value}", mySqlConnection);
+
+            updateData(updateCommand);
+        }
+
+
+        private void updateData(MySqlCommand command)
+        {
+            command.Connection = mySqlConnection;
+
+            MySqlDataReader mySqlDataReader = command.ExecuteReader();
+            mySqlDataReader.Read();
+            mySqlDataReader.Close();
+
+            updateData();
+        }
+
+        private void updateData()
+        {
             DataTable dataTable = new DataTable();
             mySqlDataAdapter.Fill(dataTable);
-
             dataGridView.DataSource = dataTable;
         }
     }
