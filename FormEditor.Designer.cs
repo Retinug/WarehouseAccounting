@@ -30,6 +30,9 @@
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_Update = new System.Windows.Forms.Button();
+            this.button_Search = new System.Windows.Forms.Button();
+            this.button_Delete = new System.Windows.Forms.Button();
             this.button_Add = new System.Windows.Forms.Button();
             this.comboBox_SelectTable = new System.Windows.Forms.ComboBox();
             this.label_SelectTable = new System.Windows.Forms.Label();
@@ -38,7 +41,6 @@
             this.toolStripMenuItem_Connect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_Delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip_Main.SuspendLayout();
@@ -59,12 +61,44 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button_Update);
+            this.panel1.Controls.Add(this.button_Search);
             this.panel1.Controls.Add(this.button_Delete);
             this.panel1.Controls.Add(this.button_Add);
             this.panel1.Location = new System.Drawing.Point(12, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(178, 362);
             this.panel1.TabIndex = 1;
+            // 
+            // button_Update
+            // 
+            this.button_Update.Location = new System.Drawing.Point(4, 62);
+            this.button_Update.Name = "button_Update";
+            this.button_Update.Size = new System.Drawing.Size(171, 23);
+            this.button_Update.TabIndex = 3;
+            this.button_Update.Text = "Обновить";
+            this.button_Update.UseVisualStyleBackColor = true;
+            this.button_Update.Click += new System.EventHandler(this.button_Update_Click);
+            // 
+            // button_Search
+            // 
+            this.button_Search.Location = new System.Drawing.Point(4, 91);
+            this.button_Search.Name = "button_Search";
+            this.button_Search.Size = new System.Drawing.Size(171, 23);
+            this.button_Search.TabIndex = 2;
+            this.button_Search.Text = "Поиск";
+            this.button_Search.UseVisualStyleBackColor = true;
+            this.button_Search.Click += new System.EventHandler(this.button_Search_Click);
+            // 
+            // button_Delete
+            // 
+            this.button_Delete.Location = new System.Drawing.Point(4, 33);
+            this.button_Delete.Name = "button_Delete";
+            this.button_Delete.Size = new System.Drawing.Size(171, 23);
+            this.button_Delete.TabIndex = 1;
+            this.button_Delete.Text = "Удалить";
+            this.button_Delete.UseVisualStyleBackColor = true;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
             // 
             // button_Add
             // 
@@ -136,16 +170,6 @@
             this.toolStripMenuItem_Settings.Text = "Настройка";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
-            // button_Delete
-            // 
-            this.button_Delete.Location = new System.Drawing.Point(3, 33);
-            this.button_Delete.Name = "button_Delete";
-            this.button_Delete.Size = new System.Drawing.Size(171, 23);
-            this.button_Delete.TabIndex = 1;
-            this.button_Delete.Text = "Удалить";
-            this.button_Delete.UseVisualStyleBackColor = true;
-            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
-            // 
             // FormEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,6 +207,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Disconnect;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Settings;
         private System.Windows.Forms.Button button_Delete;
+        private System.Windows.Forms.Button button_Search;
+        private System.Windows.Forms.Button button_Update;
     }
 }
 

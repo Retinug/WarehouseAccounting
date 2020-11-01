@@ -84,6 +84,22 @@ namespace WarehouseAccounting
             updateData(deleteCommand);
         }
 
+        private void button_Update_Click(object sender, EventArgs e)
+        {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
+            DataTable dataTable = new DataTable();
+            mySqlDataAdapter.Fill(dataTable);
+            dataGridView.DataSource = dataTable;
+        }        
+
+        private void button_Search_Click(object sender, EventArgs e)
+        {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+        }
+
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
         {
             List<String> Tablenames = new List<String>();
@@ -191,6 +207,5 @@ namespace WarehouseAccounting
             }
             return false;
         }
-
     }
 }
