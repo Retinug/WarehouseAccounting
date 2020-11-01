@@ -15,11 +15,9 @@ namespace WarehouseAccounting
 {
     public partial class FormEditor : Form
     {
-        List<String> Tablenames = new List<String>();
-
         MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
 
-        MySqlConnection mySqlConnection;
+        MySqlConnection mySqlConnection = new MySqlConnection();
 
         MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
         public FormEditor()
@@ -38,6 +36,9 @@ namespace WarehouseAccounting
 
         private void button_Add_Click(object sender, EventArgs e)
         {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
             DataGridViewColumnCollection columnCollection = dataGridView.Columns;
 
             string variables = "";
@@ -72,6 +73,9 @@ namespace WarehouseAccounting
 
         private void button_Delete_Click(object sender, EventArgs e)
         {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
             DataGridViewCell dataCell = dataGridView.SelectedCells[0];
 
             MySqlCommand deleteCommand = new MySqlCommand($"DELETE FROM {comboBox_SelectTable.SelectedItem} WHERE {dataCell.OwningColumn.HeaderText} " +
@@ -82,6 +86,7 @@ namespace WarehouseAccounting
 
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
         {
+            List<String> Tablenames = new List<String>();
 
             if (Settings.Default["Server"] == null)
             {
@@ -89,7 +94,7 @@ namespace WarehouseAccounting
                 return;
             }
 
-            mySqlConnection = new MySqlConnection(mySqlConnectionStringBuilder.ToString());
+            mySqlConnection.ConnectionString = mySqlConnectionStringBuilder.ToString();
 
             try
             {
@@ -118,7 +123,6 @@ namespace WarehouseAccounting
 
             toolStripMenuItem_Connect.Enabled = false;
             toolStripMenuItem_Disconnect.Enabled = true;
-
         }
 
         private void toolStripMenuItem_Disconnect_Click(object sender, EventArgs e)
@@ -127,6 +131,7 @@ namespace WarehouseAccounting
             toolStripMenuItem_Disconnect.Enabled = false;
             toolStripMenuItem_Connect.Enabled = true;
             comboBox_SelectTable.Items.Clear();
+            comboBox_SelectTable.SelectedIndex = -1;
         }
 
         private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
@@ -175,6 +180,16 @@ namespace WarehouseAccounting
             mySqlDataReader.Close();
 
             updateData();
+        }
+
+        private bool checkErrorConnection(string message)
+        {
+            if (mySqlConnection.State == ConnectionState.Closed)
+            {
+                MessageBox.Show(message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
         }
 
     }
