@@ -94,7 +94,17 @@ namespace WarehouseAccounting
             DataTable dataTable = new DataTable();
             mySqlDataAdapter.Fill(dataTable);
             dataGridView.DataSource = dataTable;
-        }        
+        }
+
+        private void button_SelectAll_Click(object sender, EventArgs e)
+        {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
+            mySqlDataAdapter.SelectCommand = new MySqlCommand("SELECT * FROM " + comboBox_SelectTable.SelectedItem.ToString(), mySqlConnection);
+
+            updateData();
+        }
 
         private void button_Search_Click(object sender, EventArgs e)
         {
@@ -113,7 +123,6 @@ namespace WarehouseAccounting
             if (formSettings.DialogResult == DialogResult.OK)
             {
                 MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM {comboBox_SelectTable.SelectedItem} {formSettings.select}");
-                //mySqlCommand.Connection = mySqlConnection;
 
                 mySqlDataAdapter.SelectCommand = mySqlCommand;
 

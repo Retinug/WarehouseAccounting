@@ -41,6 +41,7 @@
             this.toolStripMenuItem_Connect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.button_SelectAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip_Main.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button_SelectAll);
             this.panel1.Controls.Add(this.button_Update);
             this.panel1.Controls.Add(this.button_Search);
             this.panel1.Controls.Add(this.button_Delete);
@@ -82,7 +84,7 @@
             // 
             // button_Search
             // 
-            this.button_Search.Location = new System.Drawing.Point(4, 91);
+            this.button_Search.Location = new System.Drawing.Point(4, 120);
             this.button_Search.Name = "button_Search";
             this.button_Search.Size = new System.Drawing.Size(171, 23);
             this.button_Search.TabIndex = 2;
@@ -170,6 +172,16 @@
             this.toolStripMenuItem_Settings.Text = "Настройка";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
+            // button_SelectAll
+            // 
+            this.button_SelectAll.Location = new System.Drawing.Point(4, 91);
+            this.button_SelectAll.Name = "button_SelectAll";
+            this.button_SelectAll.Size = new System.Drawing.Size(171, 23);
+            this.button_SelectAll.TabIndex = 4;
+            this.button_SelectAll.Text = "Просмотр всех";
+            this.button_SelectAll.UseVisualStyleBackColor = true;
+            this.button_SelectAll.Click += new System.EventHandler(this.button_SelectAll_Click);
+            // 
             // FormEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +221,7 @@
         private System.Windows.Forms.Button button_Delete;
         private System.Windows.Forms.Button button_Search;
         private System.Windows.Forms.Button button_Update;
+        private System.Windows.Forms.Button button_SelectAll;
     }
 }
 
