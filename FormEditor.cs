@@ -15,6 +15,8 @@ namespace WarehouseAccounting
 {
     public partial class FormEditor : Form
     {
+        List<String> Tablenames = new List<String>();
+
         MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder();
 
         MySqlConnection mySqlConnection = new MySqlConnection();
@@ -98,11 +100,30 @@ namespace WarehouseAccounting
         {
             if (checkErrorConnection("Нет соединения"))
                 return;
+
+            List<String> columnsList = new List<string>();
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                columnsList.Add(column.HeaderText);
+            }
+
+            var formSettings = new FormSearch(columnsList);
+            formSettings.ShowDialog();
+            if (formSettings.DialogResult == DialogResult.OK)
+            {
+                MySqlCommand mySqlCommand = new MySqlCommand($"SELECT * FROM {comboBox_SelectTable.SelectedItem} {formSettings.select}");
+                //mySqlCommand.Connection = mySqlConnection;
+
+                mySqlDataAdapter.SelectCommand = mySqlCommand;
+
+                updateData(mySqlCommand);
+            }
         }
 
         private void toolStripMenuItem_Connect_Click(object sender, EventArgs e)
         {
-            List<String> Tablenames = new List<String>();
+            Tablenames.Clear();
 
             if (Settings.Default["Server"] == null)
             {
