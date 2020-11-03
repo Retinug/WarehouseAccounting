@@ -30,6 +30,7 @@
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_SelectAll = new System.Windows.Forms.Button();
             this.button_Update = new System.Windows.Forms.Button();
             this.button_Search = new System.Windows.Forms.Button();
             this.button_Delete = new System.Windows.Forms.Button();
@@ -41,7 +42,7 @@
             this.toolStripMenuItem_Connect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_SelectAll = new System.Windows.Forms.Button();
+            this.button_Foreign = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip_Main.SuspendLayout();
@@ -62,6 +63,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button_Foreign);
             this.panel1.Controls.Add(this.button_SelectAll);
             this.panel1.Controls.Add(this.button_Update);
             this.panel1.Controls.Add(this.button_Search);
@@ -71,6 +73,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(178, 362);
             this.panel1.TabIndex = 1;
+            // 
+            // button_SelectAll
+            // 
+            this.button_SelectAll.Location = new System.Drawing.Point(4, 91);
+            this.button_SelectAll.Name = "button_SelectAll";
+            this.button_SelectAll.Size = new System.Drawing.Size(171, 23);
+            this.button_SelectAll.TabIndex = 4;
+            this.button_SelectAll.Text = "Просмотр всех";
+            this.button_SelectAll.UseVisualStyleBackColor = true;
+            this.button_SelectAll.Click += new System.EventHandler(this.button_SelectAll_Click);
             // 
             // button_Update
             // 
@@ -172,15 +184,15 @@
             this.toolStripMenuItem_Settings.Text = "Настройка";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
-            // button_SelectAll
+            // button_Foreign
             // 
-            this.button_SelectAll.Location = new System.Drawing.Point(4, 91);
-            this.button_SelectAll.Name = "button_SelectAll";
-            this.button_SelectAll.Size = new System.Drawing.Size(171, 23);
-            this.button_SelectAll.TabIndex = 4;
-            this.button_SelectAll.Text = "Просмотр всех";
-            this.button_SelectAll.UseVisualStyleBackColor = true;
-            this.button_SelectAll.Click += new System.EventHandler(this.button_SelectAll_Click);
+            this.button_Foreign.Location = new System.Drawing.Point(4, 334);
+            this.button_Foreign.Name = "button_Foreign";
+            this.button_Foreign.Size = new System.Drawing.Size(171, 23);
+            this.button_Foreign.TabIndex = 5;
+            this.button_Foreign.Text = "Показ с внешними ключами";
+            this.button_Foreign.UseVisualStyleBackColor = true;
+            this.button_Foreign.Click += new System.EventHandler(this.button_Foreign_Click);
             // 
             // FormEditor
             // 
@@ -222,6 +234,7 @@
         private System.Windows.Forms.Button button_Search;
         private System.Windows.Forms.Button button_Update;
         private System.Windows.Forms.Button button_SelectAll;
+        private System.Windows.Forms.Button button_Foreign;
     }
 }
 

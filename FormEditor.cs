@@ -199,6 +199,9 @@ namespace WarehouseAccounting
 
         private void dataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
             DataGridViewCell dataCell = dataGridView.SelectedCells[0];
 
             MySqlCommand updateCommand = new MySqlCommand($"UPDATE {comboBox_SelectTable.SelectedItem} " +
@@ -236,6 +239,29 @@ namespace WarehouseAccounting
                 return true;
             }
             return false;
+        }
+
+        private void button_Foreign_Click(object sender, EventArgs e)
+        {
+            MySqlCommand command;
+
+            if (comboBox_SelectTable.SelectedItem.ToString() == "item")
+            {
+                command = new MySqlCommand($"SELECT id, item.title, count, sell_price, buy_price, type.title as type, model.title as model, producer.title as producer " +
+                    $"FROM item " +
+                    $"JOIN type on item.id_type = type.id_type " +
+                    $"JOIN model on item.id_model = model.id_model " +
+                    $"JOIN producer on item.id_producer = producer.id_prod",
+                    mySqlConnection);
+
+                mySqlDataAdapter.SelectCommand = command;
+
+                DataTable dataTable = new DataTable();
+                mySqlDataAdapter.Fill(dataTable);
+                dataGridView.DataSource = dataTable;
+            }
+
+            
         }
     }
 }
