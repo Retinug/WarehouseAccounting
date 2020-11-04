@@ -164,6 +164,17 @@ namespace WarehouseAccounting
 
             mySqlDataReader.Close();
 
+            mySqlCommand = new MySqlCommand("SELECT title FROM producer");
+            mySqlCommand.Connection = mySqlConnection;
+            mySqlDataReader = mySqlCommand.ExecuteReader();
+
+            while (mySqlDataReader.Read())
+            {
+                comboBox_Prod.Items.Add(mySqlDataReader.GetString(0));
+            }
+
+            mySqlDataReader.Close();
+
             comboBox_SelectTable.Items.AddRange(Tablenames.ToArray());
             comboBox_SelectTable.SelectedIndex = 0;
 
@@ -178,6 +189,8 @@ namespace WarehouseAccounting
             toolStripMenuItem_Connect.Enabled = true;
             comboBox_SelectTable.Items.Clear();
             comboBox_SelectTable.SelectedIndex = -1;
+
+            comboBox_Prod.Items.Clear();
         }
 
         private void toolStripMenuItem_Settings_Click(object sender, EventArgs e)
@@ -262,6 +275,24 @@ namespace WarehouseAccounting
             }
 
             
+        }
+
+        private void comboBox_Prod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkErrorConnection("Нет соединения"))
+                return;
+
+            MySqlCommand mySqlCommand = new MySqlCommand($"SELECT SUM(count) FROM item " +
+                $"WHERE id_producer = (SELECT producer.id_prod FROM producer WHERE producer.title = \'{comboBox_Prod.SelectedItem}\') " +
+                $"GROUP BY id_producer");
+            mySqlCommand.Connection = mySqlConnection;
+            MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
+
+            mySqlDataReader.Read();
+            label_Count.Text = $"Количество: {mySqlDataReader.GetString(0)}";
+            label_Count.Show();
+            mySqlDataReader.Close();
+
         }
     }
 }

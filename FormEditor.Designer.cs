@@ -30,6 +30,7 @@
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_Foreign = new System.Windows.Forms.Button();
             this.button_SelectAll = new System.Windows.Forms.Button();
             this.button_Update = new System.Windows.Forms.Button();
             this.button_Search = new System.Windows.Forms.Button();
@@ -42,7 +43,9 @@
             this.toolStripMenuItem_Connect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem_Settings = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_Foreign = new System.Windows.Forms.Button();
+            this.comboBox_Prod = new System.Windows.Forms.ComboBox();
+            this.label_Prod = new System.Windows.Forms.Label();
+            this.label_Count = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip_Main.SuspendLayout();
@@ -63,6 +66,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label_Count);
+            this.panel1.Controls.Add(this.label_Prod);
+            this.panel1.Controls.Add(this.comboBox_Prod);
             this.panel1.Controls.Add(this.button_Foreign);
             this.panel1.Controls.Add(this.button_SelectAll);
             this.panel1.Controls.Add(this.button_Update);
@@ -73,6 +79,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(178, 362);
             this.panel1.TabIndex = 1;
+            // 
+            // button_Foreign
+            // 
+            this.button_Foreign.Location = new System.Drawing.Point(4, 334);
+            this.button_Foreign.Name = "button_Foreign";
+            this.button_Foreign.Size = new System.Drawing.Size(171, 23);
+            this.button_Foreign.TabIndex = 5;
+            this.button_Foreign.Text = "Показ с внешними ключами";
+            this.button_Foreign.UseVisualStyleBackColor = true;
+            this.button_Foreign.Click += new System.EventHandler(this.button_Foreign_Click);
             // 
             // button_SelectAll
             // 
@@ -165,7 +181,7 @@
             // toolStripMenuItem_Connect
             // 
             this.toolStripMenuItem_Connect.Name = "toolStripMenuItem_Connect";
-            this.toolStripMenuItem_Connect.Size = new System.Drawing.Size(145, 22);
+            this.toolStripMenuItem_Connect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Connect.Text = "Соединить";
             this.toolStripMenuItem_Connect.Click += new System.EventHandler(this.toolStripMenuItem_Connect_Click);
             // 
@@ -173,26 +189,44 @@
             // 
             this.toolStripMenuItem_Disconnect.Enabled = false;
             this.toolStripMenuItem_Disconnect.Name = "toolStripMenuItem_Disconnect";
-            this.toolStripMenuItem_Disconnect.Size = new System.Drawing.Size(145, 22);
+            this.toolStripMenuItem_Disconnect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Disconnect.Text = "Отсоединить";
             this.toolStripMenuItem_Disconnect.Click += new System.EventHandler(this.toolStripMenuItem_Disconnect_Click);
             // 
             // toolStripMenuItem_Settings
             // 
             this.toolStripMenuItem_Settings.Name = "toolStripMenuItem_Settings";
-            this.toolStripMenuItem_Settings.Size = new System.Drawing.Size(145, 22);
+            this.toolStripMenuItem_Settings.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem_Settings.Text = "Настройка";
             this.toolStripMenuItem_Settings.Click += new System.EventHandler(this.toolStripMenuItem_Settings_Click);
             // 
-            // button_Foreign
+            // comboBox_Prod
             // 
-            this.button_Foreign.Location = new System.Drawing.Point(4, 334);
-            this.button_Foreign.Name = "button_Foreign";
-            this.button_Foreign.Size = new System.Drawing.Size(171, 23);
-            this.button_Foreign.TabIndex = 5;
-            this.button_Foreign.Text = "Показ с внешними ключами";
-            this.button_Foreign.UseVisualStyleBackColor = true;
-            this.button_Foreign.Click += new System.EventHandler(this.button_Foreign_Click);
+            this.comboBox_Prod.FormattingEnabled = true;
+            this.comboBox_Prod.Location = new System.Drawing.Point(4, 178);
+            this.comboBox_Prod.Name = "comboBox_Prod";
+            this.comboBox_Prod.Size = new System.Drawing.Size(171, 21);
+            this.comboBox_Prod.TabIndex = 8;
+            this.comboBox_Prod.SelectedIndexChanged += new System.EventHandler(this.comboBox_Prod_SelectedIndexChanged);
+            // 
+            // label_Prod
+            // 
+            this.label_Prod.AutoSize = true;
+            this.label_Prod.Location = new System.Drawing.Point(1, 162);
+            this.label_Prod.Name = "label_Prod";
+            this.label_Prod.Size = new System.Drawing.Size(136, 13);
+            this.label_Prod.TabIndex = 9;
+            this.label_Prod.Text = "Поиск по производителю";
+            // 
+            // label_Count
+            // 
+            this.label_Count.AutoSize = true;
+            this.label_Count.Location = new System.Drawing.Point(3, 202);
+            this.label_Count.Name = "label_Count";
+            this.label_Count.Size = new System.Drawing.Size(69, 13);
+            this.label_Count.TabIndex = 5;
+            this.label_Count.Text = "Количество:";
+            this.label_Count.Visible = false;
             // 
             // FormEditor
             // 
@@ -211,6 +245,7 @@
             this.Text = "Учет склада";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.menuStrip_Main.ResumeLayout(false);
             this.menuStrip_Main.PerformLayout();
             this.ResumeLayout(false);
@@ -235,6 +270,9 @@
         private System.Windows.Forms.Button button_Update;
         private System.Windows.Forms.Button button_SelectAll;
         private System.Windows.Forms.Button button_Foreign;
+        private System.Windows.Forms.ComboBox comboBox_Prod;
+        private System.Windows.Forms.Label label_Prod;
+        private System.Windows.Forms.Label label_Count;
     }
 }
 
