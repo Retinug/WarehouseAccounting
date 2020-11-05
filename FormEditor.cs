@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -91,9 +86,7 @@ namespace WarehouseAccounting
             if (checkErrorConnection("Нет соединения"))
                 return;
 
-            DataTable dataTable = new DataTable();
-            mySqlDataAdapter.Fill(dataTable);
-            dataGridView.DataSource = dataTable;
+            updateData();
         }
 
         private void button_SelectAll_Click(object sender, EventArgs e)
